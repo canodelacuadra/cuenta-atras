@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cuenta atrás</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #333;
+        color: #cde;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .container {
+        width: 90vw;
+        margin: 1em auto;
+        min-height: 90vh;
+        background-color: darkslategrey;
+        padding: 1em;
+        line-height: 10vh;
+        font-size: calc(1.5em + 1vw);
+        border: 1px solid white;
+        text-align: center;
+      }
+      .mensaje {
+        font-size: 1.2em;
+      }
+      #tiempo {
+        background-color: #09f7fc;
+        font-family: "Courier New", Courier, monospace;
+        color: #333;
+        font-weight: bold;
+        padding: 0 0.5em;
+      }
+      .certificado {
+        font-size: 0.8em;
+        text-align: center;
+        line-height: auto;
+        font-variant: small-caps;
+      }
+      footer {
+        text-align: right;
+        font-weight: bold;
+        font-style: italic;
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <picture>
+        <img width="200" src="Panneau-dormir.png" alt="descanso" />
+      </picture>
+      <p>Estamos descansando</p>
+      <p class="mensaje">Volvemos en <span id="tiempo">20:00</span> minutos</p>
+      <p class="certificado">Desarrollo de Aplicaciones con Tecnologías Web</p>
+      <footer>Fuenlabrada <span id="fecha"></span></footer>
+    </div>
+
+    <script>
+      function startTimer(duration, display) {
+        var timer = duration,
+          minutes,
+          seconds;
+        setInterval(function () {
+          minutes = parseInt(timer / 60, 10);
+          seconds = parseInt(timer % 60, 10);
+
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+
+          display.textContent = minutes + ":" + seconds;
+
+          if (--timer < 0) {
+            timer = duration;
+          }
+        }, 1000);
+      }
+
+      window.onload = function () {
+        var tiempoDescanso = 60 * 20,
+          display = document.querySelector("#tiempo");
+        startTimer(tiempoDescanso, display);
+      };
+      function ponerFecha(id) {
+        var f = new Date();
+        var fecha =
+          f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear();
+        document.getElementById(id).innerHTML = fecha;
+      }
+      ponerFecha("fecha");
+    </script>
+  </body>
+</html>
